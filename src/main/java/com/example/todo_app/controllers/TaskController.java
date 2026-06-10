@@ -49,6 +49,11 @@ public class TaskController {
     }
 
 //    PATCH /api/v1/tasks/{id}/complete
+    @PatchMapping("tasks/{id}/complete")
+    public Task updateStatusToCompleted(@PathVariable int id){
+     return  service.updateStatusToCompleted(id);
+}
+
 
  //   GET /api/v1/tasks?status=PENDING
   //  GET /api/v1/tasks/search?keyword=project
