@@ -41,5 +41,8 @@ public class TaskService {
 
 }
 
+    public void deleteTaskById(int id) {
+      repo.deleteById(id);
+    }
 }
 

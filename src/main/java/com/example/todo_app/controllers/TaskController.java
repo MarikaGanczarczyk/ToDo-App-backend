@@ -19,12 +19,14 @@ public class TaskController {
    public Task addTask(@RequestBody Task task){
         return service.addTask(task);
     }
-@GetMapping("/tasks")
-public List<Task> getAllTasks(){
+
+
+   @GetMapping("/tasks")
+   public List<Task> getAllTasks(){
         return service.getAllTasks();
 }
 
-  //  GET /api/v1/tasks/{id}
+   //  GET /api/v1/tasks/{id}
     @GetMapping("/tasks/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable int id){
 
@@ -41,6 +43,11 @@ public List<Task> getAllTasks(){
 
 
   //  DELETE /api/v1/tasks/{id}
+    @DeleteMapping("task/{id}")
+    public void deleteTask(@PathVariable int id){
+         service.deleteTaskById(id);
+    }
+
 //    PATCH /api/v1/tasks/{id}/complete
 
  //   GET /api/v1/tasks?status=PENDING
