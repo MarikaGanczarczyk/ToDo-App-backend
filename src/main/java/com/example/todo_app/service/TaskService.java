@@ -1,9 +1,11 @@
 package com.example.todo_app.service;
 
+import ch.qos.logback.core.status.Status;
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -51,6 +53,10 @@ public class TaskService {
         Task task = repo.findById(id).orElseThrow( () -> new RuntimeException("Task not found: " + id));
         task.setStatus(Task.Status.COMPLETED);
         return repo.save(task);
+    }
+
+    public  List<Task> getTaskByStatus(@RequestParam Status status) {
+        return  repo.findByStatus(status);
     }
 }
 

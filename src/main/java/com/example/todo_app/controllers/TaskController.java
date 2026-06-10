@@ -1,5 +1,6 @@
 package com.example.todo_app.controllers;
 
+import ch.qos.logback.core.status.Status;
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,12 @@ public class TaskController {
     public Task updateStatusToCompleted(@PathVariable int id){
      return  service.updateStatusToCompleted(id);
 }
+    //   GET /api/v1/tasks?status=PENDING
+@GetMapping("tasks/")
+    public List<Task> getTaskByStatus(@RequestParam Status status){
+      return    service.getTaskByStatus(status);
+}
 
-
- //   GET /api/v1/tasks?status=PENDING
   //  GET /api/v1/tasks/search?keyword=project
 
 
