@@ -61,7 +61,10 @@ public class TaskController {
 }
 
   //  GET /api/v1/tasks/search?keyword=project
-
+ @GetMapping("tasks/search")
+    public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
+        return service.findByTitleContainingIgnoreCase(keyword);
+ }
 
   //  GET /api/v1/tasks?sort=priority
  //   GET /api/v1/tasks?sort=dueDate

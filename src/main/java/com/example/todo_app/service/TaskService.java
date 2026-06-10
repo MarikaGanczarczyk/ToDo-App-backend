@@ -58,5 +58,9 @@ public class TaskService {
     public  List<Task> getTaskByStatus(@RequestParam Status status) {
         return  repo.findByStatus(status);
     }
+
+    public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
+        return repo.findByTitleContainingIgnoreCase(keyword);
+    }
 }
 
