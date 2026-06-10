@@ -44,5 +44,13 @@ public class TaskService {
     public void deleteTaskById(int id) {
       repo.deleteById(id);
     }
+
+
+    public Task updateStatusToCompleted(int id) {
+
+        Task task = repo.findById(id).orElseThrow( () -> new RuntimeException("Task not found: " + id));
+        task.setStatus(Task.Status.COMPLETED);
+        return repo.save(task);
+    }
 }
 
