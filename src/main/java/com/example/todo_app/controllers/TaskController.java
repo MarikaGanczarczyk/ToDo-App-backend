@@ -1,13 +1,14 @@
 package com.example.todo_app.controllers;
 
-import ch.qos.logback.core.status.Status;
+
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.service.TaskService;
-import jakarta.annotation.Priority;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,18 +19,19 @@ public class TaskController {
     private TaskService service;
 
     @PostMapping("/tasks")
-   public Task addTask(@RequestBody Task task){
+   public Task addTask(@Valid @RequestBody Task task){
         return service.addTask(task);
     }
 
-   // Get /tasks   &  //  GET /api/v1/tasks?sort=priority
+   // Get /tasks   &  //  GET /api/v1/tasks?sort=priority  &  //   GET /api/v1/tasks?sort=dueDate  & //   GET /api/v1/tasks?status=PENDING
    @GetMapping("/tasks")
-   public List<Task> getAllTasks(@RequestParam(required = false) Task.Priority priority) {
+   public List<Task> getAllTasks(
+                                 @RequestParam(required = false) Task.Priority priority,
+                                 @RequestParam(required = false) LocalDate dueDate,
+                                 @RequestParam(required = false) Task.Status status
+   ) {
 
-
-           return (priority != null)
-              ? service.getTaskSortedByPriority(priority)
-                   :service.getAllTasks();
+           return service.getAllTasks( priority, dueDate, status);
 
 
    }
@@ -61,21 +63,13 @@ public class TaskController {
     public Task updateStatusToCompleted(@PathVariable int id){
      return  service.updateStatusToCompleted(id);
 }
-    //   GET /api/v1/tasks?status=PENDING
-@GetMapping("tasks/")
-    public List<Task> getTaskByStatus(@RequestParam Status status){
-      return    service.getTaskByStatus(status);
-}
+
 
   //  GET /api/v1/tasks/search?keyword=project
  @GetMapping("tasks/search")
     public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
         return service.findByTitleContainingIgnoreCase(keyword);
  }
-
-
-
- //   GET /api/v1/tasks?sort=dueDate
 
 
 }

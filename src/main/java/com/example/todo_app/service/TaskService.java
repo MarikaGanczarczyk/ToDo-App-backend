@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,9 +22,22 @@ public class TaskService {
     }
 
 
-    public List<Task> getAllTasks() {
+    public List<Task> getAllTasks( Task.Priority priority, LocalDate dueDate, Task.Status status) {
+
+
+        if (priority != null) {
+            return repo.findByPriority(priority);
+        }
+
+        if (dueDate != null) {
+            return repo.findByDueDate(dueDate);
+        }
+       if (status != null){
+           return repo.findByStatus(status);
+       }
         return repo.findAll();
     }
+
 
     public Task getTaskById(int id) {
         return repo.findById(id)
@@ -56,7 +70,7 @@ public class TaskService {
         return repo.save(task);
     }
 
-    public  List<Task> getTaskByStatus(@RequestParam Status status) {
+    public  List<Task> getTaskByStatus(@RequestParam Task.Status status) {
         return  repo.findByStatus(status);
     }
 
@@ -64,8 +78,6 @@ public class TaskService {
         return repo.findByTitleContainingIgnoreCase(keyword);
     }
 
-    public List<Task> getTaskSortedByPriority(Task.Priority priority) {
-        return repo.findByPriority(priority);
-    }
+
 }
 
