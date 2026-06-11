@@ -3,6 +3,7 @@ package com.example.todo_app.controllers;
 import ch.qos.logback.core.status.Status;
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.service.TaskService;
+import jakarta.annotation.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,17 @@ public class TaskController {
         return service.addTask(task);
     }
 
-
+   // Get /tasks   &  //  GET /api/v1/tasks?sort=priority
    @GetMapping("/tasks")
-   public List<Task> getAllTasks(){
-        return service.getAllTasks();
-}
+   public List<Task> getAllTasks(@RequestParam(required = false) Task.Priority priority) {
+
+
+           return (priority != null)
+              ? service.getTaskSortedByPriority(priority)
+                   :service.getAllTasks();
+
+
+   }
 
    //  GET /api/v1/tasks/{id}
     @GetMapping("/tasks/{id}")
@@ -66,7 +73,8 @@ public class TaskController {
         return service.findByTitleContainingIgnoreCase(keyword);
  }
 
-  //  GET /api/v1/tasks?sort=priority
+
+
  //   GET /api/v1/tasks?sort=dueDate
 
 

@@ -4,6 +4,7 @@ import ch.qos.logback.core.status.Status;
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,6 +62,10 @@ public class TaskService {
 
     public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
         return repo.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    public List<Task> getTaskSortedByPriority(Task.Priority priority) {
+        return repo.findByPriority(priority);
     }
 }
 
