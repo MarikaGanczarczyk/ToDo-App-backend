@@ -92,3 +92,5 @@ public class TaskServiceTest {
                 .hasMessageContaining("Task not found: 99");
     }
 }
+// https://www.dhiwise.com/post/a-step-by-step-guide-to-implementing-react-spring-boot
+// https://www.c-sharpcorner.com/article/build-a-full-stack-app-with-react-and-spring-boot-integration/
