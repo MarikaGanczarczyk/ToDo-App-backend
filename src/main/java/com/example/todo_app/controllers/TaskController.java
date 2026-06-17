@@ -53,7 +53,7 @@ public class TaskController {
 
 
   //  DELETE /api/v1/tasks/{id}
-    @DeleteMapping("task/{id}")
+    @DeleteMapping("tasks/{id}")
     public void deleteTask(@PathVariable int id){
          service.deleteTaskById(id);
     }
