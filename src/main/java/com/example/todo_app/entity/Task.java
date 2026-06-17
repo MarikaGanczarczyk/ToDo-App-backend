@@ -1,7 +1,10 @@
 package com.example.todo_app.entity;
 
+
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -14,15 +17,18 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String title;
     private String description;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+    @NotNull
     private LocalDate dueDate;
 
 
