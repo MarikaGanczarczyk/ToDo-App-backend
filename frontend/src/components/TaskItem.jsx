@@ -13,6 +13,7 @@ function TaskItem({ task, onDelete, onComplete }) {
       <p className={`priority ${task.priority.toLowerCase()}`}>
         {task.priority}
       </p>
+      <p>{task.description}</p>
 
       {task.dueDate && <p>Due: {task.dueDate}</p>}
 
