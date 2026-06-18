@@ -4,7 +4,7 @@ function TaskForm({ onAddTask, onClose }) {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("LOW");
   const [description, setDescription] = useState("")
-  const [status, setStatus] = useState("Status")
+  const [status, setStatus] = useState("COMPLETED")
   const [dueDate, setDueDate] = useState(new Date().toISOString().split("T")[0])
 
   const handleSubmit = (e) => {
@@ -25,7 +25,7 @@ function TaskForm({ onAddTask, onClose }) {
     setTitle("");
     setPriority("LOW");
     setDescription("");
-    setStatus("Status")
+    setStatus("COMPLETED")
     setDueDate(new Date().toISOString().split("T")[0])
   };
 
@@ -58,7 +58,7 @@ function TaskForm({ onAddTask, onClose }) {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-            <option value="Status">Status</option>
+
               <option value="PENDING">Pending</option>
               <option value="COMPLETED">Completed</option>
 

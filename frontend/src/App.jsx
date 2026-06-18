@@ -10,6 +10,11 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import './App.css';
 
+
+
+
+
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +24,9 @@ function App() {
   // Filtry
   const [statusFilter, setStatusFilter] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('');
+
+
+
 
   const loadTasks = async () => {
     setLoading(true);
@@ -37,6 +45,9 @@ function App() {
       setLoading(false);
     }
   };
+
+
+
 
   // Wczytaj taski przy starcie i przy zmianie filtrów
   useEffect(() => {
@@ -71,6 +82,7 @@ setShowForm(false);
       const response = await completeTask(id);
       setTasks((prev) =>
         prev.map((task) => (task.id === id ? response.data : task))
+
       );
     } catch (err) {
       console.error(err);

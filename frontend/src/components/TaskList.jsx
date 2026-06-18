@@ -1,9 +1,14 @@
 import TaskItem from "./TaskItem";
 
 function TaskList({ tasks, onDelete, onComplete }) {
-  if (tasks.length === 0) {
-    return <p>No tasks found</p>;
-  }
+ if (tasks.length === 0) {
+   return (
+     <div className="empty-state">
+       <p>📝 No tasks yet</p>
+       <span>Start by creating your first task</span>
+     </div>
+   );
+ }
 
   return (
     <div className="task-list">

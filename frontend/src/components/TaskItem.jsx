@@ -7,8 +7,12 @@ function TaskItem({ task, onDelete, onComplete }) {
     >
       <h3>{task.title}</h3>
 
-      <p>Status: {task.status}</p>
-      <p >Priority: {task.priority}</p>
+     <span className={`badge ${task.status.toLowerCase()}`}>
+       {task.status}
+     </span>
+      <p className={`priority ${task.priority.toLowerCase()}`}>
+        {task.priority}
+      </p>
 
       {task.dueDate && <p>Due: {task.dueDate}</p>}
 
