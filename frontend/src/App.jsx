@@ -21,9 +21,10 @@ function App() {
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
-  // Filtry
+
   const [statusFilter, setStatusFilter] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('');
+   const [editingTask, setEditingTask] = useState(null);
 
 
 
@@ -40,16 +41,18 @@ function App() {
       setTasks(response.data);
     } catch (err) {
       console.error(err);
-      setError('Nie udało się wczytać tasków. Sprawdź, czy backend działa.');
+      setError('Failed to load tasks. Check if the backend is running.');
     } finally {
       setLoading(false);
     }
   };
 
+const handleEditClick = (task) => {
+  setEditingTask(task);
+  setShowForm(true);
+};
 
 
-
-  // Wczytaj taski przy starcie i przy zmianie filtrów
   useEffect(() => {
     loadTasks();
   }, [statusFilter, priorityFilter]);
@@ -63,7 +66,7 @@ setShowForm(false);
 
     } catch (err) {
       console.error(err);
-      setError('Nie udało się dodać taska.');
+      setError('Failed to load task.');
     }
   };
 
@@ -73,7 +76,7 @@ setShowForm(false);
       setTasks((prev) => prev.filter((task) => task.id !== id));
     } catch (err) {
       console.error(err);
-      setError('Nie udało się usunąć taska.');
+      setError('Failed to delete task.');
     }
   };
 
@@ -86,10 +89,29 @@ setShowForm(false);
       );
     } catch (err) {
       console.error(err);
-      setError('Nie udało się oznaczyć taska jako zakończonego.');
+      setError('Copilot said: Failed to mark the task as completed. ');
     }
-  };
 
+
+  };
+const handleUpdateTask = async (taskData) => {
+  try {
+    const response = await updateTask(taskData.id, taskData);
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === taskData.id ? response.data : task
+      )
+    );
+
+ setShowForm(false);
+    setEditingTask(null);
+
+  } catch (error) {
+    console.error("Error updating task:", error);
+    setError("Failed to update task");
+  }
+};
   return (
     <div className="app">
       <h1>Task Manager</h1>
@@ -101,7 +123,14 @@ setShowForm(false);
     {showForm && (
       <TaskForm
         onAddTask={handleAddTask}
-        onClose={() => setShowForm(false)}
+         onUpdateTask={handleUpdateTask}
+    task={editingTask}
+
+        onClose={() => {
+       setShowForm(false);
+      setEditingTask(null);
+      }}
+
       />
     )}
 
@@ -135,6 +164,8 @@ setShowForm(false);
           tasks={tasks}
           onDelete={handleDeleteTask}
           onComplete={handleCompleteTask}
+          onEdit={handleEditClick}
+
         />
       )}
     </div>

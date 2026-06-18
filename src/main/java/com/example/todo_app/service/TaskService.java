@@ -1,6 +1,6 @@
 package com.example.todo_app.service;
 
-import ch.qos.logback.core.status.Status;
+
 import com.example.todo_app.entity.Task;
 import com.example.todo_app.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +80,22 @@ public class TaskService {
 
     public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
         return repo.findByTitleContainingIgnoreCase(keyword);
+    }
+
+
+    public long countAllTasks(){
+        return repo.count();
+    }
+
+
+    public long countCompletedTasks() {
+        return repo.countByStatus(Task.Status.COMPLETED);
+    }
+
+    public long countOverdueTasks() {
+        return repo.countByStatusAndDueDateBefore(
+                Task.Status.PENDING, LocalDate.now()
+        );
     }
 
 
