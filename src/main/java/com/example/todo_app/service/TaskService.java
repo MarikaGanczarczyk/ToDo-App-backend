@@ -24,6 +24,10 @@ public class TaskService {
 
     public List<Task> getAllTasks( Task.Priority priority, LocalDate dueDate, Task.Status status) {
 
+        if (priority != null && status != null) {
+            return repo.findByPriorityAndStatus(priority, status);
+        }
+
 
         if (priority != null) {
             return repo.findByPriority(priority);

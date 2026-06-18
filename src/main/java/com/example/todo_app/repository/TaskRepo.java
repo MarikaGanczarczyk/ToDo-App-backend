@@ -18,4 +18,6 @@ public interface TaskRepo extends JpaRepository<Task, Integer> {
     List<Task> findByPriority(Task.Priority priority);
 
     List<Task> findByDueDate(LocalDate dueDate);
+
+    List<Task> findByPriorityAndStatus(Task.Priority priority, Task.Status status);
 }
