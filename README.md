@@ -51,6 +51,18 @@ npm start
 
 ### Project Documents
 
-- [Project Plan](./ProjectPlan.xlsx)
+- [Project Plan](frontend/ProjectPlan.xlsx)
 
-- [Screenshots](./projectPlan.png)
+- [Screenshots](frontend/projectPlan.png)
+
+### Task Manager
+
+- [Task Manager](frontend/TaskManager.png)
+- [Pending & Medium Task](frontend/Pending&MediumTasks.png)
+- [Create Task Form](frontend/CreateTaskForm.png)
+- [Test task](frontend/TestTask.png)
+- [Test task adding](frontend/TestTaskAdded.png)
+- [Test task created](frontend/TestTaskCompleted.png)
+- [Edit task](frontend/EditTask.png)
+- [ Edit task 2](frontend/EditTask2.png)
+- [Edited task](frontend/EditedTask.png)
