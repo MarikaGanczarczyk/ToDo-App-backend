@@ -51,6 +51,6 @@ npm start
 
 ### Project Documents
 
-- [Project Plan](./ProjectPlan.xlsx)
+- [Project Plan](frontend/ProjectPlan.xlsx)
 
-- [Screenshots](./projectPlan.png)
+- [Screenshots](frontend/projectPlan.png)
