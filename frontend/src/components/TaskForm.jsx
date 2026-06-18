@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function TaskForm({ onAddTask, onClose }) {
+function TaskForm({ onAddTask, onClose, onUpdateTask, task }) {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("LOW");
-  const [description, setDescription] = useState("")
-  const [status, setStatus] = useState("COMPLETED")
-  const [dueDate, setDueDate] = useState(new Date().toISOString().split("T")[0])
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+
+  // ✅ wypełnianie przy edycji
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title || "");
+      setDescription(task.description || "");
+      setPriority(task.priority || "LOW");
+      setDueDate(task.dueDate || "");
+    }
+  }, [task]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,24 +25,32 @@ function TaskForm({ onAddTask, onClose }) {
       return alert("Title cannot be empty");
     }
 
-    onAddTask({
+    const newTask = {
       title,
-      priority,
       description,
-      status,
-      dueDate
-    });
+      priority,
+      dueDate,
+      status: task?.status || "PENDING"
+    };
 
+    if (task) {
+      // ✅ EDIT
+       onUpdateTask({ id: task.id, ...newTask });
+    } else {
+      // ✅ ADD
+      onAddTask(newTask);
+    }
+
+    // reset
     setTitle("");
-    setPriority("LOW");
     setDescription("");
-    setStatus("COMPLETED")
-    setDueDate(new Date().toISOString().split("T")[0])
+    setPriority("LOW");
+    setDueDate("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Add Task</h3>
+      <h3>{task ? "Edit Task" : "Add Task"}</h3>
 
       <input
         type="text"
@@ -39,12 +58,13 @@ function TaskForm({ onAddTask, onClose }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <input
-              type="text"
-              placeholder="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+        type="text"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
 
       <select
         value={priority}
@@ -54,28 +74,22 @@ function TaskForm({ onAddTask, onClose }) {
         <option value="MEDIUM">Medium</option>
         <option value="HIGH">High</option>
       </select>
-       <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
 
-              <option value="PENDING">Pending</option>
-              <option value="COMPLETED">Completed</option>
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
 
-            </select>
+      <div className="buttons">
+        <button type="submit">
+          {task ? "Update Task" : "Add Task"}
+        </button>
 
-<input
-  type="date"
-  value={dueDate}
-  onChange={(e) => setDueDate(e.target.value)}
-/>
-
-<div className="buttons">
-     <button type="submit">Add Task</button>
-     <button type="button" onClick={onClose}>
-       Cancel
-     </button>
-     </div>
+        <button type="button" onClick={onClose}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-function TaskList({ tasks, onDelete, onComplete }) {
+function TaskList({ tasks, onDelete, onComplete, onEdit }) {
  if (tasks.length === 0) {
    return (
      <div className="empty-state">
@@ -18,6 +18,7 @@ function TaskList({ tasks, onDelete, onComplete }) {
           task={task}
           onDelete={onDelete}
           onComplete={onComplete}
+          onEdit={onEdit}
         />
       ))}
     </div>
