@@ -39,6 +39,7 @@ public class TaskService {
        if (status != null){
            return repo.findByStatus(status);
        }
+
         return repo.findAll();
     }
 
@@ -83,20 +84,6 @@ public class TaskService {
     }
 
 
-    public long countAllTasks(){
-        return repo.count();
-    }
-
-
-    public long countCompletedTasks() {
-        return repo.countByStatus(Task.Status.COMPLETED);
-    }
-
-    public long countOverdueTasks() {
-        return repo.countByStatusAndDueDateBefore(
-                Task.Status.PENDING, LocalDate.now()
-        );
-    }
 
 
 }

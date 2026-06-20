@@ -2,6 +2,7 @@ package com.example.todo_app.controllers;
 
 
 import com.example.todo_app.entity.Task;
+import com.example.todo_app.repository.TaskRepo;
 import com.example.todo_app.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,6 +21,8 @@ public class TaskController {
 
     @Autowired
     private TaskService service;
+    @Autowired
+    private TaskRepo repo;
 
     @PostMapping("/tasks")
    public Task addTask(@Valid @RequestBody Task task){
@@ -72,6 +76,8 @@ public class TaskController {
     public List<Task> findByTitleContainingIgnoreCase(@RequestParam String keyword){
         return service.findByTitleContainingIgnoreCase(keyword);
  }
+
+
 
 
 }

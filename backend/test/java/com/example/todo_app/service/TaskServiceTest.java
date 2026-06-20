@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -90,6 +92,28 @@ public class TaskServiceTest {
         assertThatThrownBy(() -> task.updateTaskById(99, sampleTask))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("Task not found: 99");
+    }
+
+    @Test
+    void updateTaskStatusToComplete_WhenFound_ShouldUpdate(){
+
+        when(repo.findById(1)).thenReturn(Optional.of(sampleTask));
+        when(repo.save(any(Task.class))).thenReturn(sampleTask);
+
+        Task result = task.updateStatusToCompleted(1);
+
+        assertEquals(Task.Status.COMPLETED, result.getStatus());
+
+    }
+
+    @Test
+    void updateTaskStatusToComplete_WhenNotComplete_ShouldThrowException() {
+
+        when(repo.findById(1)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            task.updateStatusToCompleted(1);
+        });
     }
 }
 // https://www.dhiwise.com/post/a-step-by-step-guide-to-implementing-react-spring-boot
