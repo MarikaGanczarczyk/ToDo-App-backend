@@ -57,6 +57,9 @@ const handleEditClick = (task) => {
     loadTasks();
   }, [statusFilter, priorityFilter]);
 
+
+
+
   const handleAddTask = async (newTask) => {
     try {
 

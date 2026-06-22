@@ -6,6 +6,7 @@ import com.example.todo_app.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ public class TaskService {
     public Task addTask(Task task) {
         return repo.save(task);
     }
+
+
 
 
     public List<Task> getAllTasks( Task.Priority priority, LocalDate dueDate, Task.Status status) {
@@ -39,6 +42,7 @@ public class TaskService {
        if (status != null){
            return repo.findByStatus(status);
        }
+
         return repo.findAll();
     }
 
@@ -83,20 +87,6 @@ public class TaskService {
     }
 
 
-    public long countAllTasks(){
-        return repo.count();
-    }
-
-
-    public long countCompletedTasks() {
-        return repo.countByStatus(Task.Status.COMPLETED);
-    }
-
-    public long countOverdueTasks() {
-        return repo.countByStatusAndDueDateBefore(
-                Task.Status.PENDING, LocalDate.now()
-        );
-    }
 
 
 }

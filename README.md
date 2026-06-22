@@ -66,3 +66,8 @@ npm start
 - [Edit task](frontend/EditTask.png)
 - [ Edit task 2](frontend/EditTask2.png)
 - [Edited task](frontend/EditedTask.png)
+
+## 🎥 Demo
+
+👉 Click to watch the demo:  
+https://youtu.be/UKjy6AKuK50 
